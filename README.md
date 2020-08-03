@@ -17,4 +17,4 @@ This input module breaks manual input. This problem arises from the way input mo
 - Python 3 with pywin32 installed
 
 ## How to use it
-First compile api-injector solution or use precompiled files in releases section. Then make sure injector.exe and api.dll are in the same directory. Next launch NGU-IDLE and injector in that order, a new window should appear with addinational informations. Use provided api python module to create scripts. For minimal script example, refer to [example.py](https://github.com/rigged-regie/NGU-inputs/blob/master/example.py)
+First compile api-injector solution or use precompiled files in [releases](https://github.com/rigged-regie/NGU-inputs/releases) section. Then make sure injector.exe and api.dll are in the same directory. Next launch NGU-IDLE and injector in that order, a new window should appear with addinational informations. Use provided api python module to create scripts. For minimal script example, refer to [example.py](https://github.com/rigged-regie/NGU-inputs/blob/master/example.py)

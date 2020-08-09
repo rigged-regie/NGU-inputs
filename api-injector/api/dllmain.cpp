@@ -580,14 +580,14 @@ DWORD main_thread(LPVOID) {
 		if (!com::cmd::close()) printf("|E| Unable to close pipe %d\n", GetLastError());
 		if (!com::cmd::init()) { printf("|E| Unable to initialize cmd pipe %d\n", GetLastError()); break; }
 		if (!com::cmd::wait_for_client()) {
-			printf("|W| Unable to connect to client %d\n", GetLastError());
+			printf("|W| Unable to connect to client %lu\n", GetLastError());
 			Sleep(100);
 			continue;
 		}
 
 		while (true) {
 			if (!com::cmd::read(&cmd_typ, 1)) {
-				printf("|W| Unable to read command type\n");
+				printf("|W| Unable to read command type %lu\n", GetLastError());
 				break;
 			}
 
@@ -598,7 +598,7 @@ DWORD main_thread(LPVOID) {
 
 			DWORD const args_len = cmd::cmds[cmd_typ].args_len;
 			if (args_len && !com::cmd::read(cmd_args, args_len)) {
-				printf("|W| Unable to read command arguments\n");
+				printf("|W| Unable to read command arguments %lu\n", GetLastError());
 				break;
 			}
 

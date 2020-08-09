@@ -267,7 +267,7 @@ namespace hk {
 
 		if (dat.do_fake) {
 			if (code == dat.fake) {
-				dat.fake = false;
+				dat.do_fake = false;
 				return 1;
 			}
 			return 0;

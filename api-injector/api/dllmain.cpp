@@ -265,16 +265,10 @@ namespace hk {
 	int GetKeyDown(int code) {
 		auto& dat = get_key_down_dat;
 
-		if (dat.do_fake) {
-			if (code == dat.fake) {
-				dat.do_fake = false;
-				return 1;
-			}
-			return 0;
-		}
-
 		using fn = int(*)(int);
-		return fn(dat.buffer)(code);
+		return dat.do_fake && code == dat.fake ?
+			TRUE :
+			fn(dat.buffer)(code);
 	}
 
 	int GetKey(void* addr) {
@@ -283,14 +277,12 @@ namespace hk {
 
 		if (dat.do_fake) {
 			char* str = mono::mono_string_to_utf8(addr);
-
 			if (!str) {
-				printf("|W| GetKey | Something went wrong\n");
+				printf("|W| GetKey | Unable to convert mono string\n");
 			} else {
 				bool const eq = (dat.fake == str);
-				dat.do_fake = !eq;
 				mono::g_free(str);
-				return eq;
+				if (eq) return TRUE;
 			}
 		}
 
@@ -411,8 +403,8 @@ namespace cmd {
 		BYTE key = *(BYTE*)(args + 0);
 		if (key == 0) dat.fake = "left shift";
 		else if (key == 1) dat.fake = "right shift";
-		else if (key == 2) dat.fake = "left control";
-		else if (key == 3) dat.fake = "right control";
+		else if (key == 2) dat.fake = "left ctrl";
+		else if (key == 3) dat.fake = "right ctrl";
 		else {
 			printf("|W| Invalid argument passed into fake_special %hhu\n", key);
 			return;
